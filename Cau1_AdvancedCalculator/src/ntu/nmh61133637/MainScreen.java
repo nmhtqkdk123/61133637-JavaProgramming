@@ -2,18 +2,48 @@ package ntu.nmh61133637;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel lblFirstNum;
+	private JLabel lblSecondNum;
+	private String temp;
+	private String operator;
+	
+	private void insertNum(String num) {
+		if(temp.charAt(0) != '0') temp+=num;
+		else temp = temp.replaceFirst("0", num);
+		if(lblFirstNum.isVisible()) {
+			lblFirstNum.setText(temp);
+		} else lblSecondNum.setText(temp);
+		System.out.println(lblFirstNum.getText());
+	}
+	
+	private void EqualHandle(String a, String b) {
+		double valA, valB, valC;
+		try {
+			valA = Double.parseDouble(a);
+			valB = Double.parseDouble(b);
+		} catch(NumberFormatException e) {
+			lblFirstNum.setText("Dữ liệu vừa nhập không hợp lệ. Vui lòng nhập lại!");
+			return;
+		}
+		Calculator calculate = new Calculator();
+		
+	}
 
 	/**
 	 * Create the frame.
@@ -28,19 +58,26 @@ public class MainScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblFirstNum = new JLabel("0");
+		lblFirstNum = new JLabel("0");
+		temp = lblFirstNum.getText();
 		lblFirstNum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFirstNum.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		lblFirstNum.setBounds(10, 50, 414, 40);
 		contentPane.add(lblFirstNum);
 		
-		JLabel lblSecondNum = new JLabel("");
+		lblSecondNum = new JLabel("");
 		lblSecondNum.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSecondNum.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		lblSecondNum.setBounds(10, 50, 414, 40);
+		lblSecondNum.setVisible(false);
 		contentPane.add(lblSecondNum);
 		
 		JButton btnThree = new JButton("3");
+		btnThree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnThree.getText());
+			}
+		});
 		btnThree.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnThree.setBounds(314, 284, 50, 50);
 		btnThree.setBorder(new RoundedBorder(10));
@@ -48,13 +85,23 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnThree);
 		
 		JButton btnSix = new JButton("6");
+		btnSix.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnSix.getText());
+			}
+		});
 		btnSix.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnSix.setBorder(new RoundedBorder(10));
 		btnSix.setBackground(UIManager.getColor("Button.light"));
 		btnSix.setBounds(314, 223, 50, 50);
 		contentPane.add(btnSix);
 		
-		JButton btnNine = new JButton("7");
+		JButton btnNine = new JButton("9");
+		btnNine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnNine.getText());
+			}
+		});
 		btnNine.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnNine.setBorder(new RoundedBorder(10));
 		btnNine.setBackground(UIManager.getColor("Button.light"));
@@ -62,6 +109,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnNine);
 		
 		JButton btnMultiply = new JButton("x");
+		btnMultiply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = btnMultiply.getText();
+			}
+		});
 		btnMultiply.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnMultiply.setBorder(new RoundedBorder(10));
 		btnMultiply.setBackground(UIManager.getColor("Button.light"));
@@ -69,6 +121,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnMultiply);
 		
 		JButton btnDivide = new JButton("÷");
+		btnDivide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = btnDivide.getText();
+			}
+		});
 		btnDivide.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnDivide.setBorder(new RoundedBorder(10));
 		btnDivide.setBackground(UIManager.getColor("Button.light"));
@@ -76,6 +133,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnDivide);
 		
 		JButton btnEqual = new JButton("=");
+		btnEqual.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EqualHandle(lblFirstNum.getText(), lblSecondNum.getText());
+			}
+		});
 		btnEqual.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnEqual.setBorder(new RoundedBorder(10));
 		btnEqual.setBackground(UIManager.getColor("Button.light"));
@@ -97,6 +159,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnAllClear);
 		
 		JButton btnMinus = new JButton("-");
+		btnMinus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = btnMinus.getText();
+			}
+		});
 		btnMinus.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnMinus.setBorder(new RoundedBorder(10));
 		btnMinus.setBackground(UIManager.getColor("Button.light"));
@@ -104,6 +171,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnMinus);
 		
 		JButton btnEight = new JButton("8");
+		btnEight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnEight.getText());
+			}
+		});
 		btnEight.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnEight.setBorder(new RoundedBorder(10));
 		btnEight.setBackground(UIManager.getColor("Button.light"));
@@ -111,6 +183,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnEight);
 		
 		JButton btnFive = new JButton("5");
+		btnFive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnFive.getText());
+			}
+		});
 		btnFive.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnFive.setBorder(new RoundedBorder(10));
 		btnFive.setBackground(UIManager.getColor("Button.light"));
@@ -118,6 +195,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnFive);
 		
 		JButton btnTwo = new JButton("2");
+		btnTwo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnTwo.getText());
+			}
+		});
 		btnTwo.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnTwo.setBorder(new RoundedBorder(10));
 		btnTwo.setBackground(UIManager.getColor("Button.light"));
@@ -125,6 +207,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnTwo);
 		
 		JButton btnPlus = new JButton("+");
+		btnPlus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = btnPlus.getText();
+			}
+		});
 		btnPlus.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnPlus.setBorder(new RoundedBorder(10));
 		btnPlus.setBackground(UIManager.getColor("Button.light"));
@@ -132,6 +219,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnPlus);
 		
 		JButton btnSeven = new JButton("7");
+		btnSeven.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnSeven.getText());
+			}
+		});
 		btnSeven.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnSeven.setBorder(new RoundedBorder(10));
 		btnSeven.setBackground(UIManager.getColor("Button.light"));
@@ -139,6 +231,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnSeven);
 		
 		JButton btnFour = new JButton("4");
+		btnFour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnFour.getText());
+			}
+		});
 		btnFour.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnFour.setBorder(new RoundedBorder(10));
 		btnFour.setBackground(UIManager.getColor("Button.light"));
@@ -146,6 +243,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnFour);
 		
 		JButton btnOne = new JButton("1");
+		btnOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnOne.getText());
+			}
+		});
 		btnOne.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnOne.setBorder(new RoundedBorder(10));
 		btnOne.setBackground(UIManager.getColor("Button.light"));
@@ -160,6 +262,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnComma);
 		
 		JButton btnZero = new JButton("0");
+		btnZero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertNum(btnZero.getText());
+			}
+		});
 		btnZero.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnZero.setBorder(new RoundedBorder(10));
 		btnZero.setBackground(UIManager.getColor("Button.light"));

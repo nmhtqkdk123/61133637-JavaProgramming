@@ -2,6 +2,12 @@ package ntu.nmh61133637;
 
 public class Calculator {
 	private double numA, numB;
+	public Calculator() {
+		
+	}
+	public Calculator(double a, double b) {
+		this.numA = a; this.numB = b;
+	}
 	public double getNumA() {
 		return numA;
 	}
