@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 public class MainScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	Calculator cal = new Calculator();
 	DecimalFormat df = new DecimalFormat("#.##");
 	private JPanel contentPane;
 	private JLabel lblFirstNum;
@@ -65,7 +66,7 @@ public class MainScreen extends JFrame {
 			numA = Double.parseDouble(a);
 			numB = Double.parseDouble(b);
 		} catch(NumberFormatException e) {
-			lblFirstNum.setText("Dữ liệu vừa nhập không hợp lệ. Vui lòng nhập lại!");
+			lblFirstNum.setText("Error!");
 			return;
 		}
 		Calculator calculate = new Calculator(numA, numB);
@@ -91,6 +92,11 @@ public class MainScreen extends JFrame {
 				if(result % 1 > 0) lblFirstNum.setText(String.valueOf(df.format(result)));
 				else lblFirstNum.setText(String.valueOf((int)result));
 			break;
+			case "^": 
+				result = calculate.Exponent();
+				if(result % 1 > 0) lblFirstNum.setText(String.valueOf(df.format(result)));
+				else lblFirstNum.setText(String.valueOf((int)result));
+			break;
 		}
 	}
 	
@@ -109,18 +115,45 @@ public class MainScreen extends JFrame {
 	}
 	
 	private void SquareHandle() {
-		double dtemp = Double.parseDouble(temp);
-		dtemp *= dtemp;
+		double dtemp = cal.Exponent(temp, 2);
 		if(dtemp % 1 > 0) temp = String.valueOf(df.format(dtemp));
 		else temp = String.valueOf((int)dtemp);
 		lblFirstNum.setText(temp);
 	}
 	
 	private void CubeHandle() {
-		double dtemp = Double.parseDouble(temp);
-		dtemp *= dtemp * dtemp;
+		double dtemp = cal.Exponent(temp, 3);
 		if(dtemp % 1 > 0) temp = String.valueOf(df.format(dtemp));
 		else temp = String.valueOf((int)dtemp);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void EulerSquareHandle() {
+		double dtemp = cal.Exponent(Math.E, temp);
+		if(dtemp % 1 > 0) temp = String.valueOf(df.format(dtemp));
+		else temp = String.valueOf((int)dtemp);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void FactorialHandle() {
+		double dtemp = Double.parseDouble(temp);
+		if(dtemp % 1 > 0) temp = "Math Error!";
+		else if(dtemp > 19) temp = "Out of Range!";
+		else temp = String.valueOf(cal.Factorial((int)dtemp));
+		lblFirstNum.setText(temp);
+	}
+	
+	private void SquareRootHandle() {
+		double dtemp = Double.parseDouble(temp);
+		if(dtemp < 0) temp = "Math Error!";
+		else temp = String.valueOf(cal.SquareRoot(dtemp));
+		lblFirstNum.setText(temp);
+	}
+	
+	private void CubeRootHandle() {
+		double dtemp = Double.parseDouble(temp);
+		if(dtemp < 0) temp = "Math Error!";
+		else temp = String.valueOf(cal.CubeRoot(dtemp));
 		lblFirstNum.setText(temp);
 	}
 
@@ -420,6 +453,12 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnCube);
 		
 		JButton btnExponent = new JButton("xⁿ");
+		btnExponent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = "^";
+				toggleNum(true);
+			}
+		});
 		btnExponent.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnExponent.setBorder(new RoundedBorder(10));
 		btnExponent.setBackground(UIManager.getColor("Button.light"));
@@ -427,6 +466,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnExponent);
 		
 		JButton btnEulerSquare = new JButton("eⁿ");
+		btnEulerSquare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EulerSquareHandle();
+			}
+		});
 		btnEulerSquare.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnEulerSquare.setBorder(new RoundedBorder(10));
 		btnEulerSquare.setBackground(UIManager.getColor("Button.light"));
@@ -434,6 +478,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnEulerSquare);
 		
 		JButton btnFactorial = new JButton("x!");
+		btnFactorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FactorialHandle();
+			}
+		});
 		btnFactorial.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnFactorial.setBorder(new RoundedBorder(10));
 		btnFactorial.setBackground(UIManager.getColor("Button.light"));
@@ -441,6 +490,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnFactorial);
 		
 		JButton btnSquareRoot = new JButton("√x");
+		btnSquareRoot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SquareRootHandle();
+			}
+		});
 		btnSquareRoot.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnSquareRoot.setBorder(new RoundedBorder(10));
 		btnSquareRoot.setBackground(UIManager.getColor("Button.light"));
@@ -448,6 +502,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnSquareRoot);
 		
 		JButton btnCubeRoot = new JButton("³√x");
+		btnCubeRoot.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CubeRootHandle();
+			}
+		});
 		btnCubeRoot.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnCubeRoot.setBorder(new RoundedBorder(10));
 		btnCubeRoot.setBackground(UIManager.getColor("Button.light"));

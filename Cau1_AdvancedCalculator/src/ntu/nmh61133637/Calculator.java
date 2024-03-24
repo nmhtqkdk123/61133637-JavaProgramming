@@ -1,5 +1,7 @@
 package ntu.nmh61133637;
 
+import java.math.BigInteger;
+
 public class Calculator {
 	private double numA, numB;
 	public Calculator() {
@@ -32,5 +34,36 @@ public class Calculator {
 	}
 	protected double Divide() {
 		return numA / numB;
+	}
+	protected double Exponent() {
+		return Math.pow(numA, numB);
+	}
+	protected double Exponent(String txta, double b) {
+		double a = Double.parseDouble(txta);
+		return Math.pow(a, b);
+	}
+	protected double Exponent(double a, String txtb) {
+		double b = Double.parseDouble(txtb);
+		return Math.pow(a, b);
+	}
+	public long Factorial(int number) {
+        if(number == 0) return 1;
+        return number * Factorial(number - 1);
+    }
+	public double SquareRoot(double number) {
+		return Math.sqrt(number);
+	}
+	public double CubeRoot(double number) {
+		return Math.cbrt(number);
+	}
+	
+	public static BigInteger factorial(BigInteger number) {
+	    BigInteger result = BigInteger.valueOf(1);
+
+	    for (long factor = 2; factor <= number.longValue(); factor++) {
+	        result = result.multiply(BigInteger.valueOf(factor));
+	    }
+
+	    return result;
 	}
 }
