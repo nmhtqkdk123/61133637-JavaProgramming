@@ -56,6 +56,24 @@ public class Calculator {
 	public double CubeRoot(double number) {
 		return Math.cbrt(number);
 	}
+	public double YRootX() {
+		return Math.pow(numA, 1/numB);
+	}
+	public double Sin(String number) {
+		return Math.sin(Double.parseDouble(number) * Math.PI / 180);
+	}
+	public double Cos(String number) {
+		return Math.cos(Double.parseDouble(number) * Math.PI / 180);
+	}
+	public double Tan(String number) {
+		return Math.tan(Double.parseDouble(number) * Math.PI / 180);
+	}
+	public double Logarithm() {
+		return Math.log(numA)/Math.log(numB);
+	}
+	public double NaturalLogarithm(String number) {
+		return Math.log(Double.parseDouble(number));
+	}
 	
 	public static BigInteger factorial(BigInteger number) {
 	    BigInteger result = BigInteger.valueOf(1);

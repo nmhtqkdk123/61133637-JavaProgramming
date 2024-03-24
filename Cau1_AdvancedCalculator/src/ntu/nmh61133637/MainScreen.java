@@ -97,6 +97,15 @@ public class MainScreen extends JFrame {
 				if(result % 1 > 0) lblFirstNum.setText(String.valueOf(df.format(result)));
 				else lblFirstNum.setText(String.valueOf((int)result));
 			break;
+			case "√": 
+				result = calculate.YRootX();
+				if(result % 1 > 0) lblFirstNum.setText(String.valueOf(df.format(result)));
+				else lblFirstNum.setText(String.valueOf((int)result));
+			break;
+			case "log": 
+				result = calculate.Logarithm();
+				lblFirstNum.setText(String.valueOf(result));
+			break;
 		}
 	}
 	
@@ -154,6 +163,40 @@ public class MainScreen extends JFrame {
 		double dtemp = Double.parseDouble(temp);
 		if(dtemp < 0) temp = "Math Error!";
 		else temp = String.valueOf(cal.CubeRoot(dtemp));
+		lblFirstNum.setText(temp);
+	}
+	
+	private void EulerHandle() {
+		temp = String.valueOf(Math.E);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void PiHandle() {
+		temp = String.valueOf(Math.PI);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void SinHandle() {
+		double dtemp = cal.Sin(temp);
+		temp = String.valueOf(dtemp);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void CosHandle() {
+		double dtemp = cal.Cos(temp);
+		temp = String.valueOf(dtemp);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void TanHandle() {
+		double dtemp = cal.Tan(temp);
+		temp = String.valueOf(dtemp);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void NaturalLogarithmHandle() {
+		double dtemp = cal.NaturalLogarithm(temp);
+		temp = String.valueOf(dtemp);
 		lblFirstNum.setText(temp);
 	}
 
@@ -514,6 +557,12 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnCubeRoot);
 		
 		JButton btnyRootx = new JButton("ʸ√x");
+		btnyRootx.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = "√";
+				toggleNum(true);
+			}
+		});
 		btnyRootx.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		btnyRootx.setBorder(new RoundedBorder(10));
 		btnyRootx.setBackground(UIManager.getColor("Button.light"));
@@ -521,6 +570,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnyRootx);
 		
 		JButton btnEuler = new JButton("e");
+		btnEuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EulerHandle();
+			}
+		});
 		btnEuler.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnEuler.setBorder(new RoundedBorder(10));
 		btnEuler.setBackground(UIManager.getColor("Button.light"));
@@ -528,6 +582,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnEuler);
 		
 		JButton btnPi = new JButton("π");
+		btnPi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PiHandle();
+			}
+		});
 		btnPi.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btnPi.setBorder(new RoundedBorder(10));
 		btnPi.setBackground(UIManager.getColor("Button.light"));
@@ -535,6 +594,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnPi);
 		
 		JButton btnSin = new JButton("sin");
+		btnSin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SinHandle();
+			}
+		});
 		btnSin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSin.setBorder(new RoundedBorder(10));
 		btnSin.setBackground(UIManager.getColor("Button.light"));
@@ -542,6 +606,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnSin);
 		
 		JButton btnCos = new JButton("cos");
+		btnCos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CosHandle();
+			}
+		});
 		btnCos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnCos.setBorder(new RoundedBorder(10));
 		btnCos.setBackground(UIManager.getColor("Button.light"));
@@ -549,6 +618,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnCos);
 		
 		JButton btnTan = new JButton("tan");
+		btnTan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TanHandle();
+			}
+		});
 		btnTan.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnTan.setBorder(new RoundedBorder(10));
 		btnTan.setBackground(UIManager.getColor("Button.light"));
@@ -556,6 +630,12 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnTan);
 		
 		JButton btnyLogarithm = new JButton("logʸ");
+		btnyLogarithm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				operator = "log";
+				toggleNum(true);
+			}
+		});
 		btnyLogarithm.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnyLogarithm.setBorder(new RoundedBorder(10));
 		btnyLogarithm.setBackground(UIManager.getColor("Button.light"));
@@ -563,6 +643,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnyLogarithm);
 		
 		JButton btnNaturalLogarithm = new JButton("ln");
+		btnNaturalLogarithm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NaturalLogarithmHandle();
+			}
+		});
 		btnNaturalLogarithm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnNaturalLogarithm.setBorder(new RoundedBorder(10));
 		btnNaturalLogarithm.setBackground(UIManager.getColor("Button.light"));
