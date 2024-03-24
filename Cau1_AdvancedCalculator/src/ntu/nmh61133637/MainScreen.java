@@ -2,7 +2,6 @@ package ntu.nmh61133637;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.JLabel;
@@ -93,6 +92,19 @@ public class MainScreen extends JFrame {
 				else lblFirstNum.setText(String.valueOf((int)result));
 			break;
 		}
+	}
+	
+	private void PercentHandle() {
+		temp = String.valueOf(Double.parseDouble(temp)/100);
+		if(lblFirstNum.isVisible()) lblFirstNum.setText(temp);
+		else lblSecondNum.setText(temp);
+	}
+	
+	private void toggleNegative() {
+		if(temp.charAt(0) != '-') temp = insertFirst(temp, "-");
+		else temp = temp.replaceFirst("-", "");
+		if(lblFirstNum.isVisible()) lblFirstNum.setText(temp);
+		else lblSecondNum.setText(temp);
 	}
 
 	/**
@@ -343,6 +355,11 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnComma);
 		
 		JButton btnNegative = new JButton("±");
+		btnNegative.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleNegative();
+			}
+		});
 		btnNegative.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnNegative.setBorder(new RoundedBorder(10));
 		btnNegative.setBackground(UIManager.getColor("Button.light"));
@@ -350,15 +367,26 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnNegative);
 		
 		JButton btnPercent = new JButton("%");
+		btnPercent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PercentHandle();
+			}
+		});
 		btnPercent.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btnPercent.setBorder(new RoundedBorder(10));
 		btnPercent.setBackground(UIManager.getColor("Button.light"));
 		btnPercent.setBounds(374, 223, 50, 50);
 		contentPane.add(btnPercent);
 	}
-	public static String removeLastChar(String s) {
+	private static String removeLastChar(String s) {
 	    return (s == null || s.length() == 1)
 	      ? "0" 
 	      : (s.substring(0, s.length() - 1));
+	}
+	private static String insertFirst(String s, String ss) {
+		StringBuilder sb = new StringBuilder(s);
+		sb.insert(0, ss);
+		System.out.print(s);
+		return sb.toString();
 	}
 }
