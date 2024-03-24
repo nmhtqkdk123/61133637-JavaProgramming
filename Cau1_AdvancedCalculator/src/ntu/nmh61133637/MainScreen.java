@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 public class MainScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	DecimalFormat df = new DecimalFormat("#.##");
 	private JPanel contentPane;
 	private JLabel lblFirstNum;
 	private JLabel lblSecondNum;
@@ -68,7 +69,6 @@ public class MainScreen extends JFrame {
 			return;
 		}
 		Calculator calculate = new Calculator(numA, numB);
-		DecimalFormat df = new DecimalFormat("#.##");
 		double result;
 		switch(operator) {
 			case "+": 
@@ -101,10 +101,27 @@ public class MainScreen extends JFrame {
 	}
 	
 	private void toggleNegative() {
+		if(temp.charAt(0) == '0') return;
 		if(temp.charAt(0) != '-') temp = insertFirst(temp, "-");
 		else temp = temp.replaceFirst("-", "");
 		if(lblFirstNum.isVisible()) lblFirstNum.setText(temp);
 		else lblSecondNum.setText(temp);
+	}
+	
+	private void SquareHandle() {
+		double dtemp = Double.parseDouble(temp);
+		dtemp *= dtemp;
+		if(dtemp % 1 > 0) temp = String.valueOf(df.format(dtemp));
+		else temp = String.valueOf((int)dtemp);
+		lblFirstNum.setText(temp);
+	}
+	
+	private void CubeHandle() {
+		double dtemp = Double.parseDouble(temp);
+		dtemp *= dtemp * dtemp;
+		if(dtemp % 1 > 0) temp = String.valueOf(df.format(dtemp));
+		else temp = String.valueOf((int)dtemp);
+		lblFirstNum.setText(temp);
 	}
 
 	/**
@@ -377,6 +394,121 @@ public class MainScreen extends JFrame {
 		btnPercent.setBackground(UIManager.getColor("Button.light"));
 		btnPercent.setBounds(374, 223, 50, 50);
 		contentPane.add(btnPercent);
+		
+		JButton btnSquare = new JButton("x²");
+		btnSquare.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SquareHandle();
+			}
+		});
+		btnSquare.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnSquare.setBorder(new RoundedBorder(10));
+		btnSquare.setBackground(UIManager.getColor("Button.light"));
+		btnSquare.setBounds(134, 101, 50, 50);
+		contentPane.add(btnSquare);
+		
+		JButton btnCube = new JButton("x³");
+		btnCube.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CubeHandle();
+			}
+		});
+		btnCube.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnCube.setBorder(new RoundedBorder(10));
+		btnCube.setBackground(UIManager.getColor("Button.light"));
+		btnCube.setBounds(134, 162, 50, 50);
+		contentPane.add(btnCube);
+		
+		JButton btnExponent = new JButton("xⁿ");
+		btnExponent.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnExponent.setBorder(new RoundedBorder(10));
+		btnExponent.setBackground(UIManager.getColor("Button.light"));
+		btnExponent.setBounds(134, 223, 50, 50);
+		contentPane.add(btnExponent);
+		
+		JButton btnEulerSquare = new JButton("eⁿ");
+		btnEulerSquare.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnEulerSquare.setBorder(new RoundedBorder(10));
+		btnEulerSquare.setBackground(UIManager.getColor("Button.light"));
+		btnEulerSquare.setBounds(134, 284, 50, 50);
+		contentPane.add(btnEulerSquare);
+		
+		JButton btnFactorial = new JButton("x!");
+		btnFactorial.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnFactorial.setBorder(new RoundedBorder(10));
+		btnFactorial.setBackground(UIManager.getColor("Button.light"));
+		btnFactorial.setBounds(134, 345, 50, 50);
+		contentPane.add(btnFactorial);
+		
+		JButton btnSquareRoot = new JButton("√x");
+		btnSquareRoot.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnSquareRoot.setBorder(new RoundedBorder(10));
+		btnSquareRoot.setBackground(UIManager.getColor("Button.light"));
+		btnSquareRoot.setBounds(74, 101, 50, 50);
+		contentPane.add(btnSquareRoot);
+		
+		JButton btnCubeRoot = new JButton("³√x");
+		btnCubeRoot.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnCubeRoot.setBorder(new RoundedBorder(10));
+		btnCubeRoot.setBackground(UIManager.getColor("Button.light"));
+		btnCubeRoot.setBounds(74, 162, 50, 50);
+		contentPane.add(btnCubeRoot);
+		
+		JButton btnyRootx = new JButton("ʸ√x");
+		btnyRootx.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		btnyRootx.setBorder(new RoundedBorder(10));
+		btnyRootx.setBackground(UIManager.getColor("Button.light"));
+		btnyRootx.setBounds(74, 223, 50, 50);
+		contentPane.add(btnyRootx);
+		
+		JButton btnEuler = new JButton("e");
+		btnEuler.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnEuler.setBorder(new RoundedBorder(10));
+		btnEuler.setBackground(UIManager.getColor("Button.light"));
+		btnEuler.setBounds(74, 284, 50, 50);
+		contentPane.add(btnEuler);
+		
+		JButton btnPi = new JButton("π");
+		btnPi.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnPi.setBorder(new RoundedBorder(10));
+		btnPi.setBackground(UIManager.getColor("Button.light"));
+		btnPi.setBounds(74, 345, 50, 50);
+		contentPane.add(btnPi);
+		
+		JButton btnSin = new JButton("sin");
+		btnSin.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnSin.setBorder(new RoundedBorder(10));
+		btnSin.setBackground(UIManager.getColor("Button.light"));
+		btnSin.setBounds(14, 101, 50, 50);
+		contentPane.add(btnSin);
+		
+		JButton btnCos = new JButton("cos");
+		btnCos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCos.setBorder(new RoundedBorder(10));
+		btnCos.setBackground(UIManager.getColor("Button.light"));
+		btnCos.setBounds(14, 162, 50, 50);
+		contentPane.add(btnCos);
+		
+		JButton btnTan = new JButton("tan");
+		btnTan.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnTan.setBorder(new RoundedBorder(10));
+		btnTan.setBackground(UIManager.getColor("Button.light"));
+		btnTan.setBounds(14, 223, 50, 50);
+		contentPane.add(btnTan);
+		
+		JButton btnyLogarithm = new JButton("logʸ");
+		btnyLogarithm.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		btnyLogarithm.setBorder(new RoundedBorder(10));
+		btnyLogarithm.setBackground(UIManager.getColor("Button.light"));
+		btnyLogarithm.setBounds(14, 284, 50, 50);
+		contentPane.add(btnyLogarithm);
+		
+		JButton btnNaturalLogarithm = new JButton("ln");
+		btnNaturalLogarithm.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnNaturalLogarithm.setBorder(new RoundedBorder(10));
+		btnNaturalLogarithm.setBackground(UIManager.getColor("Button.light"));
+		btnNaturalLogarithm.setBounds(14, 345, 50, 50);
+		contentPane.add(btnNaturalLogarithm);
 	}
 	private static String removeLastChar(String s) {
 	    return (s == null || s.length() == 1)
